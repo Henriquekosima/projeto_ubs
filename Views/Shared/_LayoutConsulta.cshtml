@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Vacine-se</title>
+
+    <link rel="shortcut icon" href="~/images/favicons/favicon-36x36.png">
+    <link rel="stylesheet" href="~/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="~/css/default.css">
+    <link rel="stylesheet" href="~/css/header.css">
+    <link rel="stylesheet" href="~/css/footer.css">
+    <link rel="stylesheet" href="~/css/main.css">
+
+    <script type="text/javascript" src="~/lib/jquery/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/74813c5d7a.js"></script>
+</head>
+<body>
+    <main class="container-fluid">
+        <section class="row health-header">
+            <div class="col">
+                <div class="container w90">
+                    <header class="row">
+                        <div class="col-md-3">
+                            <a class="logo" asp-area="" asp-controller="Usuario" asp-action="Index">Home</a>
+                        </div>
+                        <nav class="col-md-9 my-auto menu">
+                            <ul id="my-nav" class="nav justify-content-end">
+                                <li class="nav-item"><a class="nav-link" href="#sobre-nos">Sobre nós</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#noticias">Notícias</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#campanha">Campanhas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#unidades">Unidades</a></li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Ubs")">Sou UBS</a></li>
+                            </ul>
+                        </nav>
+                    </header>
+                </div>
+            </div>
+        </section>
+
+        @RenderBody()
+
+        <footer class="row">
+            <div class="col">
+                <div class="container w90">
+                    <section class="row">
+                        <div class="col-md-2 teste" style="height: 200px;">
+                            <h5>Serviços</h5>
+                            <ul>
+                                <li><a href="">Ouvidoria</a></li>
+                                <li><a href="">Contatos</a></li>
+                                <li><a href="">Assessoria de imprensa</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2" style="height: 200px;">
+                            <h5>Assuntos</h5>
+                            <ul>
+                                <li><a href="~/Usuario/Vacinacao">Vacinação</a></li>
+                                <li><a href="~/Usuario/Ubs">UBS</a></li>
+                                <li><a href="~/Usuario/Sus">SUS</a></li>
+                                <li><a href="~/Usuario/Remedio">Remédios</a></li>
+                                <li><a href="~/Usuario/Upa">UPA</a></li>
+                                <li><a href="~/Usuario/Agenda">Agenda Fácil</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2 conteudos" style="height: 200px;">
+                            <h5>Conteúdos</h5>
+                            <ul>
+                                <li><a href="#sobre-nos">Sobre nós</a></li>
+                                <li><a href="#campanha">Campanha</a></li>
+                                <li><a href="#noticias">Notícias</a></li>
+                                <li><a href="#unidades">Unidades</a></li>
+                            </ul>
+                        </div>
+                        <div class="col col-md-4 offset-md-2 text-right">
+                            <h5>Redes Sociais</h5>
+                            <a href="https://www.facebook.com/minsaude" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a>
+                            <a href="https://twitter.com/minsaude" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+                            <a href="https://www.instagram.com/minsaude/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+                            <a href="https://www.youtube.com/user/MinSaudeBR" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+                            <a href="https://soundcloud.com/ministeriodasaude" target="_blank"><i class="fab fa-soundcloud fa-2x"></i></a>
+                            <a href="https://www.linkedin.com/company/ministeriodasaude/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+                        </div>
+                    </section>
+                    <section class="row">
+                        <div class="col text-center py-3">
+                            Copyright © Vacine-se ESPM tech. Todos os direitos reservados 2019
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+
+    <script type="text/javascript" src="~/lib/mask/jquery.mask.min.js"></script>
+    <script src="~/lib/Animated-Text-Underlines-jQuery-linkUnderline/jquery.linkunderanim.min.js"></script>
+
+    <script src="~/lib/slick-1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#search').mask('000.000.000-00');
+
+            $('.slider').slick({
+                autoplay: false,
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                slidesPerRow: 3,
+                autoplaySpeed: 3000,
+                prevArrow: $('.arrow-prev'),
+                nextArrow: $('.arrow-next')
+            });
+
+            $('.menu a, .conteudos a').on("click", function (event) {
+                var link = $(event.target);
+
+                if (!link.attr("href").startsWith('#')) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                var section = $(link.attr("href"));
+                $('html, body').animate({
+                    scrollTop: section.offset().top - 30
+                }, 600);
+            });
+
+            $("#my-nav").linkUnderlineAnim({
+                // animation speed in milliseconds
+                "speed": 300,
+                // hex color
+                "color": "#1976d2",
+                // thickness
+                "thickness": 2,
+                // distance in pixels from top
+                "distance": 3
+            });
+        });
+    </script>
+</body>
+</html>

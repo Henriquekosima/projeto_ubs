@@ -1,0 +1,66 @@
+﻿@model DependenteViewModel
+
+@{
+    ResponsavelViewModel Responsavel = (ResponsavelViewModel)ViewData["ResponsavelID"];
+}
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6 offset-md-3">
+            <h2>Responsável - @Responsavel.ResponsavelName</h2>
+        </div>
+        <br />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6 offset-md-3">
+            <form id="form" action="/Ubs/PostDependente" method="post">
+                <div>
+                    <h3 class="espaco">Cadastro de dependente</h3>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda" placeholder="Nome"
+                           id="DependentName" name="DependentName">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control sem-borda"
+                           placeholder="Data de Nascimento" id="dataDeNascimento"
+                           name="DependentBirth">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda"
+                           placeholder="Número do Cartão do SUS" id="susDependente" name="DependentSus">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda" placeholder="Alergias"
+                           id="Alergia" name="DependentAllergy">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda" placeholder="Tipo Sanguíneo"
+                           id="tipoSanguineo" name="DependentBlood" maxlength="3">
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="ResponsavelID" value="@Responsavel.ResponsavelID">
+                </div>
+
+                <button type="submit" class="btn btn-primary right sem-borda blue">Cadastrar</button>
+            </form>
+            <br>
+            <br>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // máscara cartão SUS dependente
+    $(document).ready(function () {
+        $('#susDependente').mask('000000000000000');
+    })
+
+</script>

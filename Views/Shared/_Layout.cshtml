@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]Vacine-se</title>
+
+    <link rel="shortcut icon" href="~/images/favicons/favicon-36x36.png">
+    <link rel="stylesheet" href="~/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/default.css">
+    <link rel="stylesheet" href="~/css/header-ubs.css">
+    <link rel="stylesheet" href="~/css/main-ubs.css">
+
+    <script src="~/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/74813c5d7a.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+</head>
+<body>
+    <main class="container-fluid">
+        <div id="wrapper">
+            <div class="overlay"></div>
+
+            <!-- Sidebar -->
+            <nav class="navbar fix fixed-top" id="sidebar-wrapper" role="navigation">
+                <ul class="nav sidebar-nav">
+                    <li class="sidebar-brand">
+                        <p>Vacine-se</p>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Ubs" asp-action="BuscarCpf">Buscar CPF</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Ubs" asp-action="CadastrarAtendente">Cadastrar Atendente</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Ubs" asp-action="CadastrarResponsavel">Cadastrar Usuário</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Conteudo da página -->
+            <div id="page-content-wrapper">
+                <header>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                                    <span class="hamb-top"></span>
+                                    <span class="hamb-middle"></span>
+                                    <span class="hamb-bottom"></span>
+                                </button>
+                            </div>
+                            <div class="col-md-auto offset-md-11 fixed-top">
+                                <a href="/"><i class="fas fa-sign-out-alt icon-sign-out"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div class="container w90">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="offcanvas"]').click(function () {
+                $('#wrapper').toggleClass('toggled');
+            });
+        });
+
+        $(document).ready(function () {
+            $('#entradaCPF').mask('000.000.000-00');
+        })
+
+    @RenderSection("Scripts", required: false)
+    </script>
+
+</body>
+</html>
+
+

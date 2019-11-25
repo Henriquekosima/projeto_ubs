@@ -1,0 +1,84 @@
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>jQuery Dynamic Load Content</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Nixie+One|Open+Sans' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+<div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/other/Dynamically-Load-Content-Into-A-Container-with-jQuery.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+	<h1 style="margin-top:150px;"><span>jQuery</span> Dynamic Load Content</h1>
+	<nav class="main">
+		<a href="page1.html">Page 1</a><a href="page2.html">Page 2</a><a href="page3.html">Page 3</a><a href="page4.html">Page 4</a><a href="page5.html">Page 5</a>
+	</nav>
+
+	<section id="dynamic"><p><span>//</span> Click <span>on</span> Main Menu <span>links to load contents, please.</span></p></section>
+
+
+
+<script>
+
+/*	
+	jQuery Dynamic Load Content
+	===================
+	License:
+	http://goo.gl/C6nGSP
+	===================
+	Author: @PableraShow
+
+*/
+
+	$(document).ready(function(){
+		$('nav.main > a').click(function(e){
+			e.preventDefault();
+			$("#dynamic").load($(this).attr('href'));
+		});
+	});
+	
+/*	
+	End of the jQuery Dynamic Load Content
+	===================
+	Author: @PableraShow
+
+*/
+
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

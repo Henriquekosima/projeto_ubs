@@ -1,0 +1,34 @@
+﻿@model ResponsavelViewModel
+
+<div class="row">
+    <div class="col-12">
+        <div class="col-md-6 offset-md-3">
+            <form id="form" action="PostResponsavel" method="post">
+                <div>
+                    <h3 class="espaco">Cadastro de responsável</h3>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda" placeholder="Nome"
+                           id="nomeResponsavel" name="ResponsavelName">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control sem-borda" placeholder="E-mail"
+                           id="emailResponsavel" name="ResponsavelEmail">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control sem-borda" placeholder="CPF"
+                           id="cpfResponsavel" name="ResponsavelCpf">
+                </div>
+                <button type="submit" class="btn btn-primary right sem-borda blue">Cadastrar</button>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // máscara CPF responsavel
+    $(document).ready(function () {
+        $('#cpfResponsavel').mask('000.000.000-00');
+    })
+</script>

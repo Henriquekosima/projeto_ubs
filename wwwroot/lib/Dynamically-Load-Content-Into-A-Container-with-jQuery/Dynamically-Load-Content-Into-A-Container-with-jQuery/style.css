@@ -1,0 +1,75 @@
+
+/*	
+	jQuery Dynamic Load Content
+	===================
+	License:
+	http://goo.gl/C6nGSP
+	===================
+	Author: @PableraShow
+
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #030C15;
+	font-family: 'Open Sans', sans-serif;
+}
+h1 {
+	font-family: 'Nixie One', cursive;
+	font-size: 1.8em;
+	line-height: 2em;
+	padding: 1em 2.2em;
+	color: #FAF6C2;
+}
+h1 > span { color: #7A64AD; }
+nav { width: 100%; }
+nav:before {
+	content: "Main menu";
+	display: block;
+	padding-left: 4em;
+	text-transform: uppercase;
+	color: #CB4654;
+}
+nav > a:first-child { margin-left: 3em; }
+a {
+	display: inline-block;
+	padding: 1em;
+	color: #E5E2B3;
+	text-decoration: none;
+}
+section {
+	width: auto;
+	margin-right: 10%;
+	margin-left: 4em;
+	background-color: #CB4654;
+}
+p {
+	font-size: 2em;
+	line-height: 1.6em;
+	padding: 4em 1em 4em 4em;
+	color: #FAF6C2;
+}
+span { color: #030C15;}
+footer { padding: 2em; }
+footer > ul > li { display: inline-block; }
+
+@media (max-width: 700px){
+
+	section {
+		width: 80%;
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+	p { padding: 8% 10%; }
+}
+
+/*	
+	End of the jQuery Dynamic Load Content
+	===================
+	Author: @PableraShow
+
+*/

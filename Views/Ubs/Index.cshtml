@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+@model AtendenteViewModel
+
+<head>
+    <link rel="shortcut icon" href="~/images/favicons/favicon-36x36.png">
+    <link rel="stylesheet" href="~/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="~/css/login-ubs.css">
+
+    <script src="https://kit.fontawesome.com/74813c5d7a.js"></script>
+</head>
+<body class="login-ubs">
+    <div class="login-wrapper">
+        <header>
+            <img class="logo" src="~/images/ubs_logo.jpg" width="150px" height="120px">
+        </header>
+        <form action="/Ubs/Login" method="post">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <img src="~/images/user.png" width="16px">
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Usuário" aria-label="Usuário" aria-describedby="basic-addon1" name="AttendantEmail">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <img src="~/images/senha.png" width="16px">
+                    </span>
+                </div>
+                <input type="password" class="form-control" placeholder="Senha" aria-label="Senha" aria-describedby="basic-addon1" name="AttendantPass">
+            </div>
+            <div class="text-center">
+                <a href="">Esqueci minha senha</a>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+
+    </div>
+</body>

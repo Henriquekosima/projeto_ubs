@@ -1,0 +1,33 @@
+/* =================================================================
+     Footer 
+==================================================================*/
+footer {
+     background: #3949ab;
+     color: #fff;
+     padding-top: 20px;
+}
+
+footer ul {
+     margin: 0;
+     padding: 0;
+}
+
+footer ul li {
+     list-style: none;
+}
+
+footer .fab {
+     margin: 0 5px;
+}
+
+footer .fab:last-child {
+     margin-right: 0;
+}
+
+footer a {
+     color: #fff;
+}
+
+footer a:hover {
+     color: #fff;
+}

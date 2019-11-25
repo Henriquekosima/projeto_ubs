@@ -1,0 +1,128 @@
+/* =================================================================
+     Header
+==================================================================*/
+/* * {
+    border: 1px solid red;
+} */
+
+.health-header {
+    background: #edefee url('../images/health-header.jpg') no-repeat top center;
+    background-size: cover;
+}
+
+.health-header .logo {
+    background: url(../images/ubs-logo.png) no-repeat center center;
+    background-size: cover;
+    display: inline-block;
+    height: calc(246px * .5);
+    text-indent: -9999px;
+    overflow: hidden;
+    width: calc(400px * .5);
+}
+
+.health-header nav {
+    font-size: 18px;
+    padding: 8px 0;
+}
+
+.health-header nav .nav-link {
+    color: rgb(18, 116, 207);
+}
+
+#my-nav ul li a {
+    cursor: pointer;
+}
+
+/* .health-header nav .nav-link {
+    border-radius: 5px;
+    color: rgb(18, 116, 207);
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+.health-header nav .nav-link:hover {
+    background: #4794fe;
+    box-shadow: inset 1px 1px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+} */
+
+/* =================================================================
+     Search
+==================================================================*/
+
+.search-bar h1 {
+    color: rgb(18, 116, 207);
+    font-weight: bold;
+}
+
+.search-bar .input-group {
+    background: #fff;
+    box-shadow: 2px 1px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar .input-group input {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    float: left;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+    width: calc(100% - 42px);
+}
+
+.search-bar .input-group input::placeholder {
+    color: lightgray;
+}
+
+.search-bar .input-group button {
+    background: url("../images/search.png") no-repeat center center;
+    border: none;
+    float: right;
+    height: 42px;
+    text-indent: -9999px;
+    overflow: hidden;
+    outline: none;
+    width: 42px;
+}
+
+/* =================================================================
+     Caroussel
+==================================================================*/
+.caroussel {
+    background: #fff;
+    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+}
+
+.caroussel .caroussel-container {
+    position: relative;
+}
+
+.caroussel .caroussel-container .slider img {
+    margin: auto;
+}
+
+.caroussel .caroussel-container .arrow-container {
+    top: calc(50% - 35px);
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.caroussel .caroussel-container a{
+    outline: none;
+}
+
+.caroussel .caroussel-container .arrow-container a {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+}
+
+.caroussel .caroussel-container .arrow-container .arrow-prev {
+    left: 0;
+}
+
+.caroussel .caroussel-container .arrow-container .arrow-next {
+    right: 0;
+}
