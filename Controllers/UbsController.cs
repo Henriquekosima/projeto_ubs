@@ -319,6 +319,7 @@ namespace UBS_mvc.Controllers
             MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
             ResponsavelViewModel Responsavel = null;
             List<VacinaViewModel> Vacinas = new List<VacinaViewModel>();
+            List<DoseViewModel> Doses = new List<DoseViewModel>();
 
             try
             {
@@ -368,15 +369,73 @@ namespace UBS_mvc.Controllers
                     }
                 }
 
+                using (MySqlCommand cmd3 = new MySqlCommand("SELECT Dose.DoseID, Dose.DoseType FROM Dose", conn))
+                {
+                    MySqlDataReader dataReader = cmd3.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+
+                        Doses.Add(new DoseViewModel
+                        {
+                            DoseID = dataReader.GetInt32(0),
+                            DoseType = dataReader.GetString(1)
+                        });
+
+                    }
+                }
+
                 ViewData["ResponsavelID"] = Responsavel;
                 ViewData["Vacinas"] = Vacinas;
-
-                return View();
+                ViewData["Doses"] = Doses;
+ 
+                return View(new DoseViewModel { });
 
             }
             catch (Exception ex)
             {
                 return View(ex);
+            }
+            finally
+            {
+                conn.Dispose();
+                conn.Close();
+            }            
+        }
+
+        [HttpPost]
+        public IActionResult PostDose([FromForm]DoseViewModel request)
+        {
+            MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
+            DoseViewModel dose = new DoseViewModel();
+            DateTime now = DateTime.Now;
+
+            try
+            {
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand("INSERT INTO Vaccine_dose (Vaccineid, Doseid, vaccineDate) VALUES(@Vaccineid, @Doseid, @vaccineDate)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@Vaccineid", request.VacinaID);
+                    cmd.Parameters.AddWithValue("@Doseid", request.DoseID);
+                    cmd.Parameters.AddWithValue("@vaccineDate", now);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (MySqlCommand cmd2 = new MySqlCommand("INSERT INTO Vaccine_dep (VaccineID, DependentID) VALUES(@VaccineID, @DependentID)", conn))
+                {
+                    cmd2.Parameters.AddWithValue("@VaccineID", request.VacinaID);
+                    cmd2.Parameters.AddWithValue("@DependentID", request.DependenteID);
+
+                    cmd2.ExecuteNonQuery();
+                }
+                
+                return RedirectToAction("BuscarCpf");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
             }
             finally
             {

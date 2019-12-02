@@ -10,5 +10,6 @@ namespace UBS_mvc.Models
         public int DoseID { get; set; }
         public string DoseType { get; set; }
         public int VacinaID { get; set; }
+        public int DependenteID { get; set; }        
     }
 }

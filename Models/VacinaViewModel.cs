@@ -10,5 +10,6 @@ namespace UBS_mvc.Models
         public int VacinaId { get; set; }
         public string VacinaName { get; set; }
         public List<DoseViewModel> Doses { get; set; }
+        public DateTime VacinaData { get; set; }
     }
 }
