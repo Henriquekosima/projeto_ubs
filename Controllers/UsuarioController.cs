@@ -77,7 +77,7 @@ namespace UBS_mvc.Controllers
             {
                 conn.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dep.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN dose on (Vaccine.VaccineID = dose.VaccineID) WHERE User.Userid =" + id + " GROUP BY vaccineid", conn))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY vaccineid", conn))
                 {
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
@@ -102,7 +102,8 @@ namespace UBS_mvc.Controllers
                         Tela.Vacinas.Add(new VacinaViewModel
                         {
                             VacinaId = dataReader.GetInt32(2),
-                            VacinaName = dataReader.GetString(3)
+                            VacinaName = dataReader.GetString(3),
+                            VacinaData = dataReader.GetDateTime(4)
                         });
 
                         if (Tela.Doses == null)
@@ -112,7 +113,6 @@ namespace UBS_mvc.Controllers
 
                         Tela.Doses.Add(new DoseViewModel
                         {
-                            VacinaData = dataReader.GetDateTime(4),
                             DoseID = dataReader.GetInt32(5),
                             DoseType = dataReader.GetString(6)
                         });

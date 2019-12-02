@@ -3,6 +3,7 @@
 @{
     ResponsavelViewModel Responsavel = (ResponsavelViewModel)ViewData["ResponsavelID"];
     List<VacinaViewModel> Vacinas = (List<VacinaViewModel>)ViewData["Vacinas"];
+    List<DoseViewModel> Doses = (List<DoseViewModel>)ViewData["Doses"];
 }
 
 
@@ -47,8 +48,15 @@
                 </div>
                 <div class="form-group">
                     <label for="Dose">Dose : </label>
-                    <input type="text" class="form-control sem-borda" placeholder="Dose"
-                           id="Dose" name="DoseType">                   
+                    <select class="form-control sem-borda" id="dose" name="DoseID">
+                        <option selected>Escolha uma vacina</option>
+                        @foreach (var dose in Doses)
+                        {
+                            <option value="@dose.DoseID">
+                                @dose.DoseType
+                            </option>
+                        }
+                    </select>                  
                 </div>
 
                 <button type="submit" class="btn btn-primary right sem-borda blue">Cadastrar Vacina</button>
