@@ -19,9 +19,9 @@
 <div class="row">
     <div class="col-12">
         <div class="col-md-6 offset-md-3">
-            <form id="form">
+            <form id="form" action="/Ubs/PostDose" method="post">
                 <h3>Dependente Vacinado</h3>
-                <select class="form-control sem-borda" name="listbox" id="listbox">
+                <select class="form-control sem-borda" name="DependenteID" id="listbox">
                     @foreach (var item in Responsavel.Dependentes)
                     {
                         <option value="@item.DependentID">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="vacina">Vacina : </label>
-                    <select class="form-control sem-borda" id="vacina">
+                    <select class="form-control sem-borda" id="vacina" name="VacinaID">
                         <option selected>Escolha uma vacina</option>
                         @foreach (var vacina in Vacinas)
                         {

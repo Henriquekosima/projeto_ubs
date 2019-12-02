@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model ResponsavelViewModel
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -44,13 +46,13 @@
                     <section class="search-bar row my-5 justify-content-md-center">
                         <div class="col-md-5">
                             <h1 class="text-center">Pesquise pelo seu CPF</h1>
-                            <form class="mt-3 mb-5" method="GET" action="~/Usuario/Consulta">
+                            <form class="mt-3 mb-5" method="post" action="~/Usuario/Busca">
                                 <div class="form-row">
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <input type="text" name="search" id="search" class="form-control"
+                                            <input type="text" name="ResponsavelCpf" id="search" class="form-control"
                                                    placeholder="000.000.000-00" autocomplete="off">
-                                            <button>Pesquisar</button>
+                                            <button type="submit">Pesquisar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -110,10 +112,10 @@
                         <div class="col-md-2 conteudos" style="height: 200px;">
                             <h5>Conteúdos</h5>
                             <ul>
-                                <li><a href="#sobre-nos">Sobre nós</a></li>
-                                <li><a href="#campanha">Campanha</a></li>
-                                <li><a href="#noticias">Notícias</a></li>
-                                <li><a href="#unidades">Unidades</a></li>
+                                <li><a href="@prefixo#sobre-nos">Sobre nós</a></li>
+                                <li><a href="@prefixo#campanha">Campanha</a></li>
+                                <li><a href="@prefixo#noticias">Notícias</a></li>
+                                <li><a href="@prefixo#unidades">Unidades</a></li>
                             </ul>
                         </div>
                         <div class="col col-md-4 offset-md-2 text-right">
@@ -139,7 +141,6 @@
 
     <script type="text/javascript" src="~/lib/mask/jquery.mask.min.js"></script>
     <script src="~/lib/Animated-Text-Underlines-jQuery-linkUnderline/jquery.linkunderanim.min.js"></script>
-
     <script src="~/lib/slick-1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
         $(function () {

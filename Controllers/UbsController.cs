@@ -371,12 +371,54 @@ namespace UBS_mvc.Controllers
                 ViewData["ResponsavelID"] = Responsavel;
                 ViewData["Vacinas"] = Vacinas;
 
-                return View();
+                return View(new DoseViewModel { });
 
             }
             catch (Exception ex)
             {
                 return View(ex);
+            }
+            finally
+            {
+                conn.Dispose();
+                conn.Close();
+            }            
+        }
+
+        [HttpPost]
+        public IActionResult PostDose([FromForm]DoseViewModel request)
+        {
+            MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
+            DoseViewModel dose = new DoseViewModel();
+            DateTime now = DateTime.Now;
+
+            try
+            {
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand("INSERT INTO Dose (VaccineID, DoseType) VALUES(@VaccineID, @DoseType)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@VaccineID", request.VacinaID);
+                    cmd.Parameters.AddWithValue("@DoseType", request.DoseType);
+
+                    cmd.ExecuteNonQuery();
+                }
+                
+                using (MySqlCommand cmd2 = new MySqlCommand("INSERT INTO Vaccine_dep (VaccineID, DependentID, VaccineDate) VALUES(@VaccineID, @DependentID, @VaccineDate)", conn))
+                {
+                    cmd2.Parameters.AddWithValue("@VaccineID", request.VacinaID);
+                    cmd2.Parameters.AddWithValue("@DependentID", request.DependenteID);
+                    cmd2.Parameters.AddWithValue("@VaccineDate", now);
+
+                    cmd2.ExecuteNonQuery();
+                }
+                
+                return RedirectToAction("BuscarCpf");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
             }
             finally
             {
