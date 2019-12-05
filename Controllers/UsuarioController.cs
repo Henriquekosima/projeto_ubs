@@ -71,13 +71,28 @@ namespace UBS_mvc.Controllers
         public IActionResult Consulta(int id)
         {
             MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
+            List<DependenteViewModel> Dependentes = new List<DependenteViewModel>();
             TelaViewModel Tela = new TelaViewModel();
 
             try
             {
                 conn.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY vaccineid", conn))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY dependentid", conn))
+                {
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        Dependentes.Add(new DependenteViewModel
+                        {
+                            DependentID = dataReader.GetInt32(0),
+                            DependentName = dataReader.GetString(1)
+                        });
+
+                    }
+                }
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY vaccineid, dependentid, doseid", conn))
                 {
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
@@ -120,6 +135,7 @@ namespace UBS_mvc.Controllers
                 }
                 
                 ViewBag.EstaNaHome = true;
+                ViewData["Dependentes"] = Dependentes;
                 ViewData["Tela"] = Tela;
                 return View();
 

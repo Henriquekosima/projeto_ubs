@@ -1,7 +1,10 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutConsulta.cshtml";
     TelaViewModel Tela = (TelaViewModel)ViewData["Tela"];
+    List<DependenteViewModel> Dependentes = (List<DependenteViewModel>)ViewData["Dependentes"];
 }
+
+
 
 <section class="row consulta-usuario">
     <div class="col">
@@ -10,16 +13,17 @@
                 <div class="col-md">
                     <h1 class="blue-text my-4">Carteiras de vacinação</h1>
                     <ul class="nav nav-tabs">
-                        @foreach (var dependente in Tela.Responsavel.Dependentes)
+                        @foreach (var dependente in Dependentes)
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" href="#@dependente.DependentID">@dependente.DependentName</a>
                             </li>
                         }
+
                     </ul>
                 </div>
             </div>
-            @foreach (var dependente in Tela.Responsavel.Dependentes)
+            @foreach (var dependente in Dependentes)
             {
                 <div id="@dependente.DependentID" class="row mb-4 vacinas">
                     <div class="col-md">
@@ -53,6 +57,9 @@
                     </div>
                 </div>
             }
+
+
         </div>
     </div>
 </section>
+
