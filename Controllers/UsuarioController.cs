@@ -71,56 +71,106 @@ namespace UBS_mvc.Controllers
         public IActionResult Consulta(int id)
         {
             MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
-            TelaViewModel Tela = new TelaViewModel();
+            ResponsavelViewModel Responsavel = null;
 
             try
             {
                 conn.Open();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY vaccineid", conn))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT Dependent.dependentid, Dependent.dependentname, Vaccine.VaccineID, Vaccine.VaccineName, Vaccine_Dose.VaccineDate, Dose.DoseId, Dose.DoseType FROM User INNER JOIN dependent ON (User.UserID = dependent.User_UserID) INNER JOIN vaccine_dep on (dependent.DependentID = vaccine_dep.DependentID) INNER JOIN vaccine ON (vaccine_dep.VaccineID = vaccine.VaccineID) INNER JOIN vaccine_dose ON (vaccine.vaccineid = vaccine_dose.vaccineid) INNER JOIN dose on (Vaccine_dose.doseID = dose.doseID) WHERE User.Userid =" + id + " GROUP BY vaccineid, dependentid, doseid", conn))
                 {
                     MySqlDataReader dataReader = cmd.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        if(Tela.Responsavel == null)
+                        if(Responsavel == null)
                         {
-                            Tela.Responsavel = new ResponsavelViewModel();
-                            Tela.Responsavel.Dependentes = new List<DependenteViewModel>();
-                        }
-                        
-                        Tela.Responsavel.Dependentes.Add(new DependenteViewModel
-                        {
-                            DependentID = dataReader.GetInt32(0),
-                            DependentName = dataReader.GetString(1)
-                        });
-
-                        if (Tela.Vacinas == null)
-                        {
-                            Tela.Vacinas = new List<VacinaViewModel>();
+                            Responsavel = new ResponsavelViewModel
+                            {
+                                Dependentes = new List<DependenteViewModel>()
+                            };
                         }
 
-                        Tela.Vacinas.Add(new VacinaViewModel
-                        {
-                            VacinaId = dataReader.GetInt32(2),
-                            VacinaName = dataReader.GetString(3),
-                            VacinaData = dataReader.GetDateTime(4)
-                        });
+                        var last = Responsavel.Dependentes.LastOrDefault();
 
-                        if (Tela.Doses == null)
+                        if(last == null)
                         {
-                            Tela.Doses = new List<DoseViewModel>();
+                            Responsavel.Dependentes.Add(new DependenteViewModel
+                            {
+                                DependentID = dataReader.GetInt32(0),
+                                DependentName = dataReader.GetString(1),
+                                Vacinas = new List<VacinaViewModel>(),
+                            });
+                            last = Responsavel.Dependentes.LastOrDefault();
                         }
 
-                        Tela.Doses.Add(new DoseViewModel
+                        if (last.DependentID != dataReader.GetInt32(0))
                         {
-                            DoseID = dataReader.GetInt32(5),
-                            DoseType = dataReader.GetString(6)
-                        });
+                            Responsavel.Dependentes.Add(new DependenteViewModel
+                            {
+                                DependentID = dataReader.GetInt32(0),
+                                DependentName = dataReader.GetString(1),
+                                Vacinas = new List<VacinaViewModel>()
+                            });
+                        }
+
+                        foreach (var dependent in Responsavel.Dependentes)
+                        {
+                            var lastv = dependent.Vacinas.LastOrDefault();
+                            if(lastv == null)
+                            {
+                                dependent.Vacinas.Add(new VacinaViewModel
+                                {
+                                    VacinaId = dataReader.GetInt32(2),
+                                    VacinaName = dataReader.GetString(3),
+                                    VacinaData = dataReader.GetDateTime(4),
+                                    Doses = new List<DoseViewModel>()
+                                });
+                                lastv = dependent.Vacinas.LastOrDefault();
+                            }
+
+                            if (lastv.VacinaId != dataReader.GetInt32(2) && dependent.DependentID == dataReader.GetInt32(0))
+                            {
+                                dependent.Vacinas.Add(new VacinaViewModel
+                                {
+                                    VacinaId = dataReader.GetInt32(2),
+                                    VacinaName = dataReader.GetString(3),
+                                    VacinaData = dataReader.GetDateTime(4),
+                                    Doses = new List<DoseViewModel>()
+                                });
+                                lastv = dependent.Vacinas.LastOrDefault();
+                            }
+
+                            if (lastv.VacinaId == dataReader.GetInt32(2) && dependent.DependentID == dataReader.GetInt32(0))
+                            {
+                                foreach (var vacina in dependent.Vacinas)
+                                {
+                                    var lastd = vacina.Doses.LastOrDefault();
+                                    if (lastd == null)
+                                    {
+                                        vacina.Doses.Add(new DoseViewModel
+                                        {
+                                            DoseID = dataReader.GetInt32(5),
+                                            DoseType = dataReader.GetString(6)
+                                        });
+                                        lastd = vacina.Doses.LastOrDefault();
+                                    }
+                                    if (lastd.DoseID != dataReader.GetInt32(5) && vacina.VacinaId == dataReader.GetInt32(2))
+                                    {
+                                        vacina.Doses.Add(new DoseViewModel
+                                        {
+                                            DoseID = dataReader.GetInt32(5),
+                                            DoseType = dataReader.GetString(6)
+                                        });
+                                    }
+                                }
+                            }
+                            
+                        }
                     }
                 }
                 
                 ViewBag.EstaNaHome = true;
-                ViewData["Tela"] = Tela;
+                ViewData["Responsavel"] = Responsavel;
                 return View();
 
             }

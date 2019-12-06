@@ -154,7 +154,6 @@
                 tab.parents('.nav-tabs').find('.active').removeClass('active');
                 // Adiciona classe "active" no elemento que foi alvo do clique
                 tab.addClass('active');
-
                 // Força esconder todos os containers ".vacinas" para garantir
                 // que mostremos apenas o elemento necessário
                 $('.vacinas').hide();
@@ -165,6 +164,10 @@
                 var vacinaId = tab.attr('href');
                 $(vacinaId).removeClass('d-none').show();
             });
+
+            $('#tab a:first').addClass('active');
+            $('.vacinas').hide();
+            $('.vacinas:first').css('display', 'flex');
 
             $("#my-nav").linkUnderlineAnim({
                 // animation speed in milliseconds

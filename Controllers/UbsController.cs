@@ -380,7 +380,6 @@ namespace UBS_mvc.Controllers
                             DoseID = dataReader.GetInt32(0),
                             DoseType = dataReader.GetString(1)
                         });
-
                     }
                 }
 
@@ -406,7 +405,6 @@ namespace UBS_mvc.Controllers
         public IActionResult PostDose([FromForm]DoseViewModel request)
         {
             MySqlConnection conn = new MySqlConnection(_appSettings.ConnectionString);
-            DoseViewModel dose = new DoseViewModel();
             DateTime now = DateTime.Now;
 
             try
@@ -422,14 +420,14 @@ namespace UBS_mvc.Controllers
                     cmd.ExecuteNonQuery();
                 }
 
-                using (MySqlCommand cmd2 = new MySqlCommand("INSERT INTO Vaccine_dep (VaccineID, DependentID) VALUES(@VaccineID, @DependentID)", conn))
+                using (MySqlCommand cmd2 = new MySqlCommand("INSERT IGNORE INTO Vaccine_dep (VaccineID, DependentID) VALUES(@VaccineID, @DependentID)", conn))
                 {
                     cmd2.Parameters.AddWithValue("@VaccineID", request.VacinaID);
                     cmd2.Parameters.AddWithValue("@DependentID", request.DependenteID);
 
                     cmd2.ExecuteNonQuery();
                 }
-                
+
                 return RedirectToAction("BuscarCpf");
 
             }

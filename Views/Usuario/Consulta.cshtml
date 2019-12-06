@@ -1,7 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutConsulta.cshtml";
-    TelaViewModel Tela = (TelaViewModel)ViewData["Tela"];
+    ResponsavelViewModel Responsavel = (ResponsavelViewModel)ViewData["Responsavel"];
 }
+
+
 
 <section class="row consulta-usuario">
     <div class="col">
@@ -9,35 +11,36 @@
             <div class="row justify-content-md-center">
                 <div class="col-md">
                     <h1 class="blue-text my-4">Carteiras de vacinação</h1>
-                    <ul class="nav nav-tabs">
-                        @foreach (var dependente in Tela.Responsavel.Dependentes)
+                    <ul class="nav nav-tabs" id="tab">
+                        @foreach (var dependente in Responsavel.Dependentes)
                         {
                             <li class="nav-item">
-                                <a class="nav-link active" href="#@dependente.DependentID">@dependente.DependentName</a>
+                                <a class="nav-link" href="#@dependente.DependentID">@dependente.DependentName</a>
                             </li>
                         }
+
                     </ul>
                 </div>
             </div>
-            @foreach (var dependente in Tela.Responsavel.Dependentes)
+            @foreach (var dependente in Responsavel.Dependentes)
             {
                 <div id="@dependente.DependentID" class="row mb-4 vacinas">
                     <div class="col-md">
                         <div class="row">
-                            <div class="col-md my-4"><h2>Vacinas essenciais</h2></div>
+                            <div class="col-md my-4"><h4>Vacinas Cadastradas</h4></div>
                         </div>
 
                         <div class="row">
                             <div class="col-md">
                                 <ul class="row">
-                                    @foreach (var vacina in Tela.Vacinas)
+                                    @foreach (var vacina in dependente.Vacinas)
                                     {
                                         <li class="vacina px-3" style="list-style-type: none;">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h6 class="card-title">@vacina.VacinaName</h6>
                                                     <ul class="list-group list-group-flush d-none">
-                                                        @foreach (var dose in Tela.Doses)
+                                                        @foreach (var dose in vacina.Doses)
                                                         {
                                                             <li class="list-group-item"><small><strong>@dose.DoseType: </strong>@vacina.VacinaData.ToString("d")</small></li>
                                                         }
@@ -53,6 +56,9 @@
                     </div>
                 </div>
             }
+
+
         </div>
     </div>
 </section>
+
