@@ -10,5 +10,6 @@ namespace UBS_mvc.Models
         public string ResponsavelEmail { get; set; }
         public string ResponsavelCpf { get; set; }
         public List<DependenteViewModel> Dependentes { get; set; }
+        public List<VacinaViewModel> Vacinas { get; set; }
     }
 }

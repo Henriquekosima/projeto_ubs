@@ -151,3 +151,23 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- Objetos para popular o banco --
+-- (Vaccine) -- 
+INSERT INTO vaccine (VaccineName) value ('Dupla Adulto – dT');
+INSERT INTO vaccine (VaccineName) value ('Vacina Tetravalente');
+INSERT INTO vaccine (VaccineName) value ('Febre Amarela');
+INSERT INTO vaccine (VaccineName) value ('Influenza');
+INSERT INTO vaccine (VaccineName) value ('Hepatite B');
+INSERT INTO vaccine (VaccineName) value ('Pneumococo');
+INSERT INTO vaccine (VaccineName) value ('VOP');
+INSERT INTO vaccine (VaccineName) value ('Dupla Viral - SR');
+INSERT INTO vaccine (VaccineName) value ('Tríplice Viral – SRC');
+INSERT INTO vaccine (VaccineName) value ('BCG');
+
+--(Dose)--
+INSERT INTO dose (DoseType) value ('1ª Dose');
+INSERT INTO dose (DoseType) value ('2ª Dose');
+INSERT INTO dose (DoseType) value ('3ª Dose');
+INSERT INTO dose (DoseType) value ('Reforço');

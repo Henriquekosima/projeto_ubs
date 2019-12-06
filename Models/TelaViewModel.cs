@@ -7,6 +7,5 @@ namespace UBS_mvc.Models
     {
         public ResponsavelViewModel Responsavel { get; set; }
         public List<VacinaViewModel> Vacinas { get; set; }
-        public List<DoseViewModel> Doses { get; set; }
     }
 }
